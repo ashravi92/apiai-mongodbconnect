@@ -57,5 +57,6 @@ if (module === require.main) {
   });
   // [END server]
 }
+});
 
 module.exports = app;
