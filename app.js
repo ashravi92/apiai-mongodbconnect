@@ -17,9 +17,23 @@ process.env.DEBUG = 'actions-on-google:*';
 let Assistant = require('actions-on-google').ApiAiAssistant;
 let express = require('express');
 let bodyParser = require('body-parser');
+var mongodb = require("mongodb");
+var ObjectID = mongodb.ObjectID;
 
 let app = express();
 app.use(bodyParser.json({type: 'application/json'}));
+
+mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
+  if (err) {
+    console.log(err);
+    process.exit(1);
+  }
+
+  // Save database object from the callback for reuse.
+  db = database;
+  console.log("Database connection ready");
+
+
 
 // [START YourAction]
 app.post('/', function (req, res) {
