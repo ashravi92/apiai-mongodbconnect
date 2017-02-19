@@ -38,7 +38,6 @@ app.post('/', function (req, res) {
   console.log('Request headers: ' + JSON.stringify(req.headers));
   console.log('Request body: ' + JSON.stringify(req.body));
   var date=req.body.result.parameters.date;	
-  if(req.body.action=='addexpense'){
   db.collection('shop').insert(req.body.result.parameters, function (err, result) {
       if (err)
       console.log('Error');
@@ -53,42 +52,9 @@ app.post('/', function (req, res) {
   }
 
   assistant.handleRequest(responseHandler);
-}
-  if(req.body.action=='addexpense'){
-  db.collection('shop').insert(req.body.result.parameters, function (err, result) {
-      if (err)
-      console.log('Error');
-      else
-        console.log('success');
 
-  });
-  // Fulfill action business logic
-  function responseHandler (assistant) {
-    // Complete your fulfillment logic and send a response
-    assistant.tell('Expense added');
-  }
+ 
 
-  assistant.handleRequest(responseHandler);
-}
-if(req.body.action=='getexpense'){
-	var shop,amount,date;
-	date=req.body.result.parameters.date;
-	
- db.collection('shop').findOne({ _id: new ObjectID(req.body.result.parameters.date) }, function(err, doc) {
-    if (err)
-      console.log('Error');
-      else
-        console.log('success');
-	shop=res.body.result.parameters.Super-markets;
-	amount=res.body.parameters.unit-currency.amount;
-  });
-   function responseHandler (assistant) {
-    // Complete your fulfillment logic and send a response
-    assistant.tell('you have'+amount+'US dollars at'+shop+'on'+date);
-  }
-
-  assistant.handleRequest(responseHandler);
-}
 
 
 });
