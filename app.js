@@ -37,11 +37,18 @@ app.post('/', function (req, res) {
   const assistant = new Assistant({request: req, response: res});
   console.log('Request headers: ' + JSON.stringify(req.headers));
   console.log('Request body: ' + JSON.stringify(req.body));
+  var date=req.body.result.parameters.date;	
+  db.collection('shop').insert(req.body.result.parameters, function (err, result) {
+      if (err)
+      console.log('Error');
+      else
+        console.log('success');
 
+  });
   // Fulfill action business logic
   function responseHandler (assistant) {
     // Complete your fulfillment logic and send a response
-    assistant.tell('Hello, World!');
+    assistant.tell('Hello, World!'+date);
   }
 
   assistant.handleRequest(responseHandler);
