@@ -74,7 +74,7 @@ if(req.body.action=='getexpense'){
 	var shop,amount,date;
 	date=req.body.result.parameters.date;
 	
- db.collection(CONTACTS_COLLECTION).findOne({ _id: new ObjectID(req.body.result.parameters.date) }, function(err, doc) {
+ db.collection('shop').findOne({ _id: new ObjectID(req.body.result.parameters.date) }, function(err, doc) {
     if (err)
       console.log('Error');
       else
